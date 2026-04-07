@@ -1,9 +1,15 @@
+import { useState } from "react";
+import CadastroAlunoForm from "./components/CadastroAlunoForm";
 import RegistroFaltaForm from "./components/RegistroFaltaForm";
 
 export default function App() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
   return (
     <div>
-      <RegistroFaltaForm />
+      <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />
+      <hr style={{ margin: "32px 16px", borderColor: "#e2e8f0" }} />
+      <RegistroFaltaForm key={refreshKey} />
     </div>
   );
 }

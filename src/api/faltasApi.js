@@ -18,6 +18,18 @@ export async function registrarFalta(alunoId, data, quantidadeFaltas) {
   return json;
 }
 
+export async function criarAluno(nome, email) {
+  const res = await fetch(`${BASE_URL}/alunos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, email }),
+  });
+
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.mensagem || "Erro ao criar aluno.");
+  return json;
+}
+
 export async function obterResumoAluno(alunoId) {
   const res = await fetch(`${BASE_URL}/alunos/${alunoId}/resumo`);
   if (!res.ok) throw new Error("Erro ao carregar resumo do aluno.");
