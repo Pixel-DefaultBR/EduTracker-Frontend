@@ -1,6 +1,3 @@
 [build]
-builder = "nixpacks"
-buildCommand = "npm run build"
-
-[deploy]
-startCommand = "npx serve dist --listen $PORT"
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
