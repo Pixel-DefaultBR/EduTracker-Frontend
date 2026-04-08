@@ -53,7 +53,7 @@ h1, h2, h3 {
   gap: 12px;
   padding: 0 28px;
   height: 56px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
   background: var(--surface);
 }
 
@@ -71,7 +71,7 @@ h1, h2, h3 {
 /* ── sidebar ── */
 .sidebar {
   background: var(--surface);
-  border-right: 1px solid var(--border);
+  border-right: none;
   padding: 20px 0;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ h1, h2, h3 {
 
 .sidebar-item.active {
   color: var(--accent);
-  border-left-color: var(--accent);
+  border-left: none;
   background: rgba(99, 102, 241, 0.1);
 }
 
@@ -117,7 +117,7 @@ h1, h2, h3 {
 /* ── card ── */
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius);
   padding: 24px;
   max-width: 520px;
@@ -157,7 +157,7 @@ h1, h2, h3 {
 .field input,
 .field select {
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius);
   color: var(--text);
   font-family: var(--font);
@@ -170,7 +170,7 @@ h1, h2, h3 {
 
 .field input:focus,
 .field select:focus {
-  border-color: var(--accent);
+  outline: none;
 }
 
 .field input::placeholder {
@@ -218,9 +218,9 @@ h1, h2, h3 {
   margin-top: 12px;
 }
 
-.feedback.success { background: rgba(34,197,94,0.1);  color: var(--success); border: 1px solid rgba(34,197,94,0.2); }
-.feedback.error   { background: rgba(239,68,68,0.1);  color: var(--danger);  border: 1px solid rgba(239,68,68,0.2); }
-.feedback.warning { background: rgba(234,179,8,0.1);  color: #eab308;        border: 1px solid rgba(234,179,8,0.2); }
+.feedback.success { background: rgba(34,197,94,0.1);  color: var(--success); border: none; }
+.feedback.error   { background: rgba(239,68,68,0.1);  color: var(--danger);  border: none; }
+.feedback.warning { background: rgba(234,179,8,0.1);  color: #eab308;        border: none; }
 
 /* ── resumo ── */
 .resumo-stats {
@@ -228,7 +228,7 @@ h1, h2, h3 {
   align-items: center;
   justify-content: space-between;
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius);
   padding: 14px 16px;
   margin: 16px 0 12px;
@@ -255,12 +255,12 @@ h1, h2, h3 {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 0 8px 8px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
 }
 
 .tabela td {
   padding: 8px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
   color: var(--text);
 }
 
