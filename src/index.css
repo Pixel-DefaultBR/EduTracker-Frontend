@@ -4,7 +4,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #252b38;
+  --bg: #FCFCFC;
   --surface: #373F51;
   --border: #444d61;
   --text: #FFFFFF;
