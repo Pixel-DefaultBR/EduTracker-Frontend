@@ -2,27 +2,33 @@ import { useState } from "react";
 import CadastroAlunoForm from "./components/CadastroAlunoForm";
 import ConfiguracaoForm from "./components/ConfiguracaoForm";
 import RegistroFaltaForm from "./components/RegistroFaltaForm";
+import SkeletonCard from "./components/SkeletonCard";
 import "./App.css";
 
 const TABS = [
-  { id: "registro",     label: "Registrar Falta" },
-  { id: "cadastro",     label: "Cadastrar Aluno" },
-  { id: "configuracao", label: "Configuração" },
+  { id: "registro",     label: "Registrar Falta",  fields: 3 },
+  { id: "cadastro",     label: "Cadastrar Aluno",   fields: 2 },
+  { id: "configuracao", label: "Configuração",       fields: 1 },
 ];
 
 export default function App() {
-  const [tab, setTab] = useState("registro");
-  const [shimmer, setShimmer] = useState(false);
+  const [tab, setTab]         = useState("registro");
+  const [loading, setLoading] = useState(false);
+  const [nextTab, setNextTab] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   function handleTabChange(id) {
-    if (id === tab) return;
-    setShimmer(true);
+    if (id === tab || loading) return;
+    setNextTab(id);
+    setLoading(true);
     setTimeout(() => {
       setTab(id);
-      setShimmer(false);
-    }, 550);
+      setNextTab(null);
+      setLoading(false);
+    }, 4000);
   }
+
+  const skeletonFields = TABS.find((t) => t.id === (nextTab ?? tab))?.fields ?? 3;
 
   return (
     <div className="app-layout">
@@ -36,7 +42,7 @@ export default function App() {
           {TABS.map((t) => (
             <div
               key={t.id}
-              className={`nav-item ${tab === t.id ? "active" : ""}`}
+              className={`nav-item ${tab === t.id && !loading ? "active" : ""} ${nextTab === t.id ? "active" : ""}`}
               onClick={() => handleTabChange(t.id)}
             >
               {t.label}
@@ -46,11 +52,15 @@ export default function App() {
       </header>
 
       <main className="main-content">
-        <div className={shimmer ? "shimmer" : ""} style={{ display: "inline-block", width: "100%" }}>
-          {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
-          {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
-          {tab === "configuracao" && <ConfiguracaoForm />}
-        </div>
+        {loading ? (
+          <SkeletonCard fields={skeletonFields} />
+        ) : (
+          <>
+            {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
+            {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
+            {tab === "configuracao" && <ConfiguracaoForm />}
+          </>
+        )}
       </main>
     </div>
   );
