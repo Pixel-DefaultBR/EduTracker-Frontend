@@ -52,6 +52,7 @@ h1, h2, h3 {
   padding: 0 32px;
   height: 56px;
   background: var(--surface);
+  position: relative;
 }
 
 .topbar-brand {
@@ -78,6 +79,9 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav-item {
@@ -90,17 +94,32 @@ h1, h2, h3 {
   font-size: 13px;
   font-weight: 500;
   border-radius: var(--radius);
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
+  position: relative;
+  background: none;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  border-top: 2px dotted var(--accent);
+  transition: width 0.3s ease;
 }
 
 .nav-item:hover {
-  background: rgba(99, 102, 241, 0.08);
   color: var(--text);
 }
 
 .nav-item.active {
   color: var(--accent);
-  background: rgba(99, 102, 241, 0.12);
+}
+
+.nav-item.active::after {
+  width: 100%;
 }
 
 .nav-item i {
