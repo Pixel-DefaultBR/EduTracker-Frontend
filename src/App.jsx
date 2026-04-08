@@ -12,7 +12,17 @@ const TABS = [
 
 export default function App() {
   const [tab, setTab] = useState("registro");
+  const [shimmer, setShimmer] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  function handleTabChange(id) {
+    if (id === tab) return;
+    setShimmer(true);
+    setTimeout(() => {
+      setTab(id);
+      setShimmer(false);
+    }, 550);
+  }
 
   return (
     <div className="app-layout">
@@ -27,7 +37,7 @@ export default function App() {
             <div
               key={t.id}
               className={`nav-item ${tab === t.id ? "active" : ""}`}
-              onClick={() => setTab(t.id)}
+              onClick={() => handleTabChange(t.id)}
             >
               {t.label}
             </div>
@@ -36,9 +46,11 @@ export default function App() {
       </header>
 
       <main className="main-content">
-        {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
-        {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
-        {tab === "configuracao" && <ConfiguracaoForm />}
+        <div className={shimmer ? "shimmer" : ""} style={{ display: "inline-block", width: "100%" }}>
+          {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
+          {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
+          {tab === "configuracao" && <ConfiguracaoForm />}
+        </div>
       </main>
     </div>
   );
