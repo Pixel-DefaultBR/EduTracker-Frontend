@@ -20,17 +20,15 @@ export default function ConfiguracaoForm() {
     setErro(null);
     setMensagem(null);
     setCarregando(true);
-
     try {
       const res = await fetch(`${BASE_URL}/webhook`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: webhookUrl }),
       });
-
       const json = await res.json();
       if (!res.ok) throw new Error(json.mensagem || "Erro ao salvar.");
-      setMensagem("Webhook do Discord salvo com sucesso!");
+      setMensagem("Webhook salvo com sucesso!");
     } catch (err) {
       setErro(err.message);
     } finally {
@@ -39,53 +37,38 @@ export default function ConfiguracaoForm() {
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.titulo}>Configuração — Discord</h2>
+    <div className="card">
+      <div className="card-title">
+        <i className="fa-brands fa-discord" />
+        Configuração — Discord
+      </div>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.campo}>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
           <label>URL do Webhook</label>
           <input
-            type="url"
-            value={webhookUrl}
+            type="url" value={webhookUrl}
             onChange={(e) => setWebhookUrl(e.target.value)}
-            placeholder="https://discord.com/api/webhooks/..."
-            required
-            style={styles.input}
+            placeholder="https://discord.com/api/webhooks/..." required
           />
         </div>
 
-        <button type="submit" disabled={carregando} style={styles.botao}>
+        <button type="submit" className="btn btn-discord" disabled={carregando}>
+          <i className="fa-brands fa-discord" />
           {carregando ? "Salvando..." : "Salvar Webhook"}
         </button>
       </form>
 
-      {mensagem && <p style={styles.sucesso}>{mensagem}</p>}
-      {erro && <p style={styles.erro}>{erro}</p>}
+      {mensagem && (
+        <div className="feedback success">
+          <i className="fa-solid fa-circle-check" /> {mensagem}
+        </div>
+      )}
+      {erro && (
+        <div className="feedback error">
+          <i className="fa-solid fa-circle-xmark" /> {erro}
+        </div>
+      )}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: 500,
-    margin: "40px auto 0",
-    fontFamily: "sans-serif",
-    padding: "0 16px",
-  },
-  titulo: { marginBottom: 24 },
-  form: { display: "flex", flexDirection: "column", gap: 16 },
-  campo: { display: "flex", flexDirection: "column", gap: 4 },
-  input: { padding: "8px 10px", fontSize: 14, borderRadius: 4, border: "1px solid #ccc" },
-  botao: {
-    padding: "10px 16px",
-    background: "#5865F2",
-    color: "white",
-    border: "none",
-    borderRadius: 4,
-    cursor: "pointer",
-    fontSize: 15,
-  },
-  sucesso: { color: "green", marginTop: 12 },
-  erro: { color: "red", marginTop: 12 },
-};

@@ -13,7 +13,6 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
     setErro(null);
     setMensagem(null);
     setCarregando(true);
-
     try {
       const aluno = await criarAluno(nome, email);
       setMensagem(`Aluno "${aluno.nome}" cadastrado com sucesso!`);
@@ -28,65 +27,47 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.titulo}>Cadastrar Aluno</h2>
+    <div className="card">
+      <div className="card-title">
+        <i className="fa-solid fa-user-plus" />
+        Cadastrar Aluno
+      </div>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.campo}>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
           <label>Nome</label>
           <input
-            type="text"
-            value={nome}
+            type="text" value={nome}
             onChange={(e) => setNome(e.target.value)}
-            placeholder="Nome completo"
-            required
-            style={styles.input}
+            placeholder="Nome completo" required
           />
         </div>
 
-        <div style={styles.campo}>
+        <div className="field">
           <label>E-mail</label>
           <input
-            type="email"
-            value={email}
+            type="email" value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="email@escola.com"
-            required
-            style={styles.input}
+            placeholder="email@escola.com" required
           />
         </div>
 
-        <button type="submit" disabled={carregando} style={styles.botao}>
-          {carregando ? "Cadastrando..." : "Cadastrar"}
+        <button type="submit" className="btn btn-success" disabled={carregando}>
+          <i className="fa-solid fa-user-check" />
+          {carregando ? "Cadastrando..." : "Cadastrar Aluno"}
         </button>
       </form>
 
-      {mensagem && <p style={styles.sucesso}>{mensagem}</p>}
-      {erro && <p style={styles.erro}>{erro}</p>}
+      {mensagem && (
+        <div className="feedback success">
+          <i className="fa-solid fa-circle-check" /> {mensagem}
+        </div>
+      )}
+      {erro && (
+        <div className="feedback error">
+          <i className="fa-solid fa-circle-xmark" /> {erro}
+        </div>
+      )}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: 500,
-    margin: "40px auto 0",
-    fontFamily: "sans-serif",
-    padding: "0 16px",
-  },
-  titulo: { marginBottom: 24 },
-  form: { display: "flex", flexDirection: "column", gap: 16 },
-  campo: { display: "flex", flexDirection: "column", gap: 4 },
-  input: { padding: "8px 10px", fontSize: 14, borderRadius: 4, border: "1px solid #ccc" },
-  botao: {
-    padding: "10px 16px",
-    background: "#16a34a",
-    color: "white",
-    border: "none",
-    borderRadius: 4,
-    cursor: "pointer",
-    fontSize: 15,
-  },
-  sucesso: { color: "green", marginTop: 12 },
-  erro: { color: "red", marginTop: 12 },
-};

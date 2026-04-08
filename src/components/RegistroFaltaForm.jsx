@@ -18,10 +18,7 @@ export default function RegistroFaltaForm() {
   }, []);
 
   useEffect(() => {
-    if (!alunoId) {
-      setResumo(null);
-      return;
-    }
+    if (!alunoId) { setResumo(null); return; }
     obterResumoAluno(alunoId).then(setResumo).catch(() => setResumo(null));
   }, [alunoId]);
 
@@ -30,13 +27,11 @@ export default function RegistroFaltaForm() {
     setErro(null);
     setMensagem(null);
     setCarregando(true);
-
     try {
       await registrarFalta(Number(alunoId), data, Number(quantidade));
       setMensagem("Falta registrada com sucesso!");
-
-      const resumoAtualizado = await obterResumoAluno(alunoId);
-      setResumo(resumoAtualizado);
+      const r = await obterResumoAluno(alunoId);
+      setResumo(r);
     } catch (err) {
       setErro(err.message);
     } finally {
@@ -45,76 +40,75 @@ export default function RegistroFaltaForm() {
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.titulo}>Registro de Faltas</h2>
+    <div className="card">
+      <div className="card-title">
+        <i className="fa-solid fa-pen-to-square" />
+        Registrar Falta
+      </div>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.campo}>
+      <form onSubmit={handleSubmit}>
+        <div className="field">
           <label>Aluno</label>
-          <select
-            value={alunoId}
-            onChange={(e) => setAlunoId(e.target.value)}
-            required
-            style={styles.input}
-          >
+          <select value={alunoId} onChange={(e) => setAlunoId(e.target.value)} required>
             <option value="">Selecione um aluno</option>
             {alunos.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.nome}
-              </option>
+              <option key={a.id} value={a.id}>{a.nome}</option>
             ))}
           </select>
         </div>
 
-        <div style={styles.campo}>
+        <div className="field">
           <label>Data</label>
-          <input
-            type="date"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-            required
-            style={styles.input}
-          />
+          <input type="date" value={data} onChange={(e) => setData(e.target.value)} required />
         </div>
 
-        <div style={styles.campo}>
+        <div className="field">
           <label>Quantidade de Faltas</label>
           <input
-            type="number"
-            min={1}
-            max={10}
-            value={quantidade}
-            onChange={(e) => setQuantidade(e.target.value)}
-            required
-            style={styles.input}
+            type="number" min={1} max={10}
+            value={quantidade} onChange={(e) => setQuantidade(e.target.value)} required
           />
         </div>
 
-        <button type="submit" disabled={carregando} style={styles.botao}>
+        <button type="submit" className="btn btn-primary" disabled={carregando}>
+          <i className="fa-solid fa-check" />
           {carregando ? "Registrando..." : "Registrar Falta"}
         </button>
       </form>
 
-      {mensagem && <p style={styles.sucesso}>{mensagem}</p>}
-      {erro && <p style={styles.erroMsg}>{erro}</p>}
+      {mensagem && (
+        <div className="feedback success">
+          <i className="fa-solid fa-circle-check" /> {mensagem}
+        </div>
+      )}
+      {erro && (
+        <div className="feedback error">
+          <i className="fa-solid fa-circle-xmark" /> {erro}
+        </div>
+      )}
 
       {resumo && (
-        <div style={styles.resumo}>
-          <h3>Resumo de {resumo.nome}</h3>
-          <p>
-            Faltas nos últimos 7 dias:{" "}
-            <strong style={{ color: resumo.limiteExcedido ? "red" : "green" }}>
-              {resumo.totalFaltasUltimos7Dias}
-            </strong>
-          </p>
+        <div style={{ marginTop: 20 }}>
+          <div className="resumo-stats">
+            <div>
+              <div className="resumo-label">Faltas — últimos 7 dias</div>
+              <div className={`resumo-value ${resumo.limiteExcedido ? "danger" : "ok"}`}>
+                {resumo.totalFaltasUltimos7Dias}
+              </div>
+            </div>
+            {resumo.limiteExcedido && (
+              <i className="fa-solid fa-triangle-exclamation" style={{ color: "var(--danger)", fontSize: 20 }} />
+            )}
+          </div>
+
           {resumo.limiteExcedido && (
-            <p style={styles.alerta}>
-              Limite de faltas atingido! E-mail de alerta enviado para {resumo.email}.
-            </p>
+            <div className="feedback warning">
+              <i className="fa-brands fa-discord" /> Alerta enviado ao Discord para {resumo.nome}.
+            </div>
           )}
 
           {resumo.registros.length > 0 && (
-            <table style={styles.tabela}>
+            <table className="tabela">
               <thead>
                 <tr>
                   <th>Data</th>
@@ -136,47 +130,3 @@ export default function RegistroFaltaForm() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: 500,
-    margin: "40px auto",
-    fontFamily: "sans-serif",
-    padding: "0 16px",
-  },
-  titulo: { marginBottom: 24 },
-  form: { display: "flex", flexDirection: "column", gap: 16 },
-  campo: { display: "flex", flexDirection: "column", gap: 4 },
-  input: { padding: "8px 10px", fontSize: 14, borderRadius: 4, border: "1px solid #ccc" },
-  botao: {
-    padding: "10px 16px",
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    borderRadius: 4,
-    cursor: "pointer",
-    fontSize: 15,
-  },
-  sucesso: { color: "green", marginTop: 12 },
-  erroMsg: { color: "red", marginTop: 12 },
-  alerta: {
-    background: "#fef2f2",
-    border: "1px solid #fca5a5",
-    padding: "8px 12px",
-    borderRadius: 4,
-    color: "#991b1b",
-  },
-  resumo: {
-    marginTop: 24,
-    padding: 16,
-    background: "#f8fafc",
-    borderRadius: 6,
-    border: "1px solid #e2e8f0",
-  },
-  tabela: {
-    width: "100%",
-    borderCollapse: "collapse",
-    marginTop: 12,
-    fontSize: 14,
-  },
-};
