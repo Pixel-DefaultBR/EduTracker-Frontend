@@ -57,7 +57,7 @@ Formulário principal do sistema. Permite:
 - Selecionar um aluno da lista
 - Informar a data e a quantidade de faltas
 - Visualizar o resumo de faltas dos últimos 7 dias após o registro
-- Ver alerta visual caso o limite de 10 faltas tenha sido atingido
+- Ver alerta visual caso o limite de 7 faltas tenha sido atingido
 
 ---
 
