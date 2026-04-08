@@ -5,9 +5,9 @@ import RegistroFaltaForm from "./components/RegistroFaltaForm";
 import "./App.css";
 
 const TABS = [
-  { id: "registro",     label: "Registrar Falta",  icon: "fa-solid fa-pen-to-square" },
-  { id: "cadastro",     label: "Cadastrar Aluno",   icon: "fa-solid fa-user-plus" },
-  { id: "configuracao", label: "Configuração",       icon: "fa-solid fa-gear" },
+  { id: "registro",     label: "Registrar Falta" },
+  { id: "cadastro",     label: "Cadastrar Aluno" },
+  { id: "configuracao", label: "Configuração" },
 ];
 
 export default function App() {
@@ -29,7 +29,6 @@ export default function App() {
               className={`nav-item ${tab === t.id ? "active" : ""}`}
               onClick={() => setTab(t.id)}
             >
-              <i className={t.icon} />
               {t.label}
             </div>
           ))}
