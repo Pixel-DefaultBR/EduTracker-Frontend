@@ -106,7 +106,7 @@ h1, h2, h3 {
   left: 0;
   width: 0;
   height: 2px;
-  border-top: 2px dotted var(--accent);
+  border-top: 2px solid var(--accent);
   transition: width 0.3s ease;
 }
 
