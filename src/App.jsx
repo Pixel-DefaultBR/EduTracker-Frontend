@@ -16,27 +16,26 @@ export default function App() {
 
   return (
     <div className="app-layout">
-      {/* Topbar */}
       <header className="topbar">
-        <i className="fa-solid fa-graduation-cap" style={{ color: "var(--accent)", fontSize: 18 }} />
-        <span className="topbar-logo">Edu<span>Tracker</span></span>
+        <div className="topbar-brand">
+          <i className="fa-solid fa-graduation-cap" />
+          <span className="topbar-logo">Edu<span>Tracker</span></span>
+        </div>
+
+        <nav className="topbar-nav">
+          {TABS.map((t) => (
+            <div
+              key={t.id}
+              className={`nav-item ${tab === t.id ? "active" : ""}`}
+              onClick={() => setTab(t.id)}
+            >
+              <i className={t.icon} />
+              {t.label}
+            </div>
+          ))}
+        </nav>
       </header>
 
-      {/* Sidebar */}
-      <nav className="sidebar">
-        {TABS.map((t) => (
-          <div
-            key={t.id}
-            className={`sidebar-item ${tab === t.id ? "active" : ""}`}
-            onClick={() => setTab(t.id)}
-          >
-            <i className={t.icon} />
-            {t.label}
-          </div>
-        ))}
-      </nav>
-
-      {/* Content */}
       <main className="main-content">
         {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
         {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
