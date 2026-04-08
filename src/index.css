@@ -4,16 +4,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0f1117;
-  --surface: #181b23;
-  --border: #23263a;
-  --text: #e2e4ef;
-  --text-muted: #6b7280;
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
-  --danger: #ef4444;
-  --success: #22c55e;
-  --discord: #5865F2;
+  --bg: #48483A;
+  --surface: #5C574F;
+  --border: #6b6459;
+  --text: #EAE6DF;
+  --text-muted: #81AE9D;
+  --accent: #21A179;
+  --accent-hover: #189068;
+  --danger: #e05c5c;
+  --success: #21A179;
+  --discord: #A28F9D;
   --radius: 2px;
   --font: 'Poppins', sans-serif;
 }
