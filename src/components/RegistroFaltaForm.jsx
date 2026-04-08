@@ -42,7 +42,6 @@ export default function RegistroFaltaForm() {
   return (
     <div className="card">
       <div className="card-title">
-        <i className="fa-solid fa-pen-to-square" />
         Registrar Falta
       </div>
 

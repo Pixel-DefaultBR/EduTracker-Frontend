@@ -29,7 +29,6 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
   return (
     <div className="card">
       <div className="card-title">
-        <i className="fa-solid fa-user-plus" />
         Cadastrar Aluno
       </div>
 

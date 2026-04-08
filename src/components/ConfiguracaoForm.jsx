@@ -39,7 +39,6 @@ export default function ConfiguracaoForm() {
   return (
     <div className="card">
       <div className="card-title">
-        <i className="fa-brands fa-discord" />
         Configuração — Discord
       </div>
 
