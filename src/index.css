@@ -181,7 +181,7 @@ h1, h2, h3 {
   border-radius: var(--radius);
   padding: 24px;
   max-width: 520px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.28);
 }
 
 .card-title {
