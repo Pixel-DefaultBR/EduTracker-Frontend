@@ -4,16 +4,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #48483A;
-  --surface: #5C574F;
-  --border: #6b6459;
-  --text: #EAE6DF;
+  --bg: #070600;
+  --surface: #111009;
+  --border: #1f1e15;
+  --text: #F0ECE8;
   --text-muted: #81AE9D;
-  --accent: #21A179;
-  --accent-hover: #189068;
-  --danger: #e05c5c;
+  --accent: #9B5DE5;
+  --accent-hover: #7c3fd4;
+  --danger: #EA526F;
   --success: #21A179;
-  --discord: #A28F9D;
+  --discord: #9B5DE5;
   --radius: 2px;
   --font: 'Poppins', sans-serif;
 }
