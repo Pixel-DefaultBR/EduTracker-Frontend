@@ -28,8 +28,6 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
 
   return (
     <div className="card">
-      <div className="card-title">Cadastrar Aluno</div>
-
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label>Nome</label>

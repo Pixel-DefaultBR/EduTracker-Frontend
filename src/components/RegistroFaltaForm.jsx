@@ -41,8 +41,6 @@ export default function RegistroFaltaForm() {
 
   return (
     <div className="card">
-      <div className="card-title">Registrar Falta</div>
-
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label>Aluno</label>

@@ -45,8 +45,6 @@ export default function DeletarAlunoForm() {
 
   return (
     <div className="card">
-      <div className="card-title">Deletar Aluno</div>
-
       <div className="field">
         <label>Aluno</label>
         <select value={alunoId} onChange={(e) => handleSelecao(e.target.value)}>
