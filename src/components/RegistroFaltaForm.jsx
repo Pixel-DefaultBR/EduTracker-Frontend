@@ -102,7 +102,7 @@ export default function RegistroFaltaForm() {
 
           {resumo.limiteExcedido && (
             <div className="feedback warning">
-              <i className="fa-brands fa-discord" /> Alerta enviado ao Discord para {resumo.nome}.
+              <i className="fa-solid fa-envelope" /> Alerta enviado por e-mail para {resumo.nome}.
             </div>
           )}
 
