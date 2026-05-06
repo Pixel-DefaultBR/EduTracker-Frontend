@@ -6,9 +6,12 @@ import SkeletonCard from "./components/SkeletonCard";
 import "./App.css";
 
 const TABS = [
-  { id: "registro",     label: "Registrar Falta",  fields: 3 },
-  { id: "cadastro",     label: "Cadastrar Aluno",   fields: 2 },
-  { id: "configuracao", label: "Configuração",       fields: 1 },
+  { id: "registro",     label: "Registrar Falta",  icon: "fa-clipboard-list", fields: 3,
+    title: "Registrar Falta",  subtitle: "Registre a ausência de um aluno" },
+  { id: "cadastro",     label: "Cadastrar Aluno",   icon: "fa-user-plus",      fields: 2,
+    title: "Cadastrar Aluno",  subtitle: "Adicione um novo aluno ao sistema" },
+  { id: "configuracao", label: "Configuração",       icon: "fa-gear",           fields: 1,
+    title: "Configuração",     subtitle: "Gerencie as configurações do sistema" },
 ];
 
 export default function App() {
@@ -25,33 +28,44 @@ export default function App() {
       setTab(id);
       setNextTab(null);
       setLoading(false);
-    }, 4000);
+    }, 600);
   }
 
-  const skeletonFields = TABS.find((t) => t.id === (nextTab ?? tab))?.fields ?? 3;
+  const activeTab      = TABS.find((t) => t.id === (nextTab ?? tab));
+  const skeletonFields = activeTab?.fields ?? 3;
 
   return (
     <div className="app-layout">
-      <header className="topbar">
-        <div className="topbar-brand">
-          <i className="fa-solid fa-graduation-cap" />
-          <span className="topbar-logo">Edu<span>Tracker</span></span>
+      <aside className="sidebar">
+        <div className="sidebar-brand">
+          <div className="sidebar-brand-icon">
+            <i className="fa-solid fa-graduation-cap" />
+          </div>
+          <span className="sidebar-brand-name">EduTracker</span>
         </div>
 
-        <nav className="topbar-nav">
+        <div className="sidebar-section-label">Menu</div>
+
+        <nav className="sidebar-nav">
           {TABS.map((t) => (
             <div
               key={t.id}
-              className={`nav-item ${tab === t.id && !loading ? "active" : ""} ${nextTab === t.id ? "active" : ""}`}
+              className={`nav-item ${(tab === t.id && !loading) || nextTab === t.id ? "active" : ""}`}
               onClick={() => handleTabChange(t.id)}
             >
+              <i className={`fa-solid ${t.icon} nav-icon`} />
               {t.label}
             </div>
           ))}
         </nav>
-      </header>
+      </aside>
 
       <main className="main-content">
+        <div className="page-header">
+          <h1 className="page-title">{activeTab?.title}</h1>
+          <p className="page-subtitle">{activeTab?.subtitle}</p>
+        </div>
+
         {loading ? (
           <SkeletonCard fields={skeletonFields} />
         ) : (
