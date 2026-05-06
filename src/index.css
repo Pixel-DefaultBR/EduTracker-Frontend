@@ -206,6 +206,21 @@ body {
   animation-delay: 0.05s;
 }
 
+.card-wide { max-width: 860px; }
+
+.card-body {
+  display: flex;
+  gap: 28px;
+}
+
+.card-col { flex: 1; min-width: 0; }
+
+.card-divider {
+  width: 1px;
+  background: var(--input-bg);
+  flex-shrink: 0;
+}
+
 .card-title {
   font-size: 15px;
   font-weight: 600;
