@@ -36,6 +36,17 @@ export async function obterResumoAluno(alunoId) {
   return res.json();
 }
 
+export async function editarAluno(alunoId, nome, email) {
+  const res = await fetch(`${BASE_URL}/alunos/${alunoId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, email }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.mensagem || "Erro ao editar aluno.");
+  return json;
+}
+
 export async function deletarAluno(alunoId) {
   const res = await fetch(`${BASE_URL}/alunos/${alunoId}`, { method: "DELETE" });
   if (!res.ok) {
