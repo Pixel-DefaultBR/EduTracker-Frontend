@@ -35,3 +35,11 @@ export async function obterResumoAluno(alunoId) {
   if (!res.ok) throw new Error("Erro ao carregar resumo do aluno.");
   return res.json();
 }
+
+export async function deletarAluno(alunoId) {
+  const res = await fetch(`${BASE_URL}/alunos/${alunoId}`, { method: "DELETE" });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.mensagem || "Erro ao deletar aluno.");
+  }
+}

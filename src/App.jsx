@@ -1,17 +1,20 @@
 import { useState } from "react";
 import CadastroAlunoForm from "./components/CadastroAlunoForm";
-import ConfiguracaoForm from "./components/ConfiguracaoForm";
+import DeletarAlunoForm from "./components/DeletarAlunoForm";
 import RegistroFaltaForm from "./components/RegistroFaltaForm";
 import SkeletonCard from "./components/SkeletonCard";
 import "./App.css";
 
 const TABS = [
-  { id: "registro",     label: "Registrar Falta",  icon: "fa-clipboard-list", fields: 3,
-    title: "Registrar Falta",  subtitle: "Registre a ausência de um aluno" },
-  { id: "cadastro",     label: "Cadastrar Aluno",   icon: "fa-user-plus",      fields: 2,
-    title: "Cadastrar Aluno",  subtitle: "Adicione um novo aluno ao sistema" },
-  { id: "configuracao", label: "Configuração",       icon: "fa-gear",           fields: 1,
-    title: "Configuração",     subtitle: "Gerencie as configurações do sistema" },
+  { id: "registro", label: "Registrar Falta", icon: "https://cdn.lordicon.com/wloilxuq.json", fields: 3,
+    titleJsx: <><span className="title-accent">Registrar</span> <span className="title-white">Falta</span></>,
+    subtitle: "Registre a ausência de um aluno" },
+  { id: "cadastro", label: "Cadastrar Aluno", icon: "https://cdn.lordicon.com/sbiheqdr.json", fields: 2,
+    titleJsx: <><span className="title-accent">Cadastrar</span> <span className="title-white">Aluno</span></>,
+    subtitle: "Adicione um novo aluno ao sistema" },
+  { id: "deletar",  label: "Deletar Aluno",   icon: "https://cdn.lordicon.com/jmkrnisz.json", fields: 1,
+    titleJsx: <><span className="title-accent">Deletar</span> <span className="title-white">Aluno</span></>,
+    subtitle: "Remova um aluno do sistema" },
 ];
 
 export default function App() {
@@ -38,10 +41,7 @@ export default function App() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <div className="sidebar-brand-icon">
-            <i className="fa-solid fa-graduation-cap" />
-          </div>
-          <span className="sidebar-brand-name">EduTracker</span>
+          <span className="sidebar-brand-name"><span className="brand-accent">Edu</span>Tracker</span>
         </div>
 
         <div className="sidebar-section-label">Menu</div>
@@ -53,7 +53,13 @@ export default function App() {
               className={`nav-item ${(tab === t.id && !loading) || nextTab === t.id ? "active" : ""}`}
               onClick={() => handleTabChange(t.id)}
             >
-              <i className={`fa-solid ${t.icon} nav-icon`} />
+              <lord-icon
+                src={t.icon}
+                trigger="hover"
+                target=".nav-item"
+                colors="primary:#ffffff"
+                style={{width: "20px", height: "20px"}}
+              ></lord-icon>
               {t.label}
             </div>
           ))}
@@ -62,7 +68,7 @@ export default function App() {
 
       <main className="main-content">
         <div className="page-header">
-          <h1 className="page-title">{activeTab?.title}</h1>
+          <h1 className="page-title">{activeTab?.titleJsx}</h1>
           <p className="page-subtitle">{activeTab?.subtitle}</p>
         </div>
 
@@ -70,9 +76,9 @@ export default function App() {
           <SkeletonCard fields={skeletonFields} />
         ) : (
           <>
-            {tab === "registro"     && <RegistroFaltaForm key={refreshKey} />}
-            {tab === "cadastro"     && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
-            {tab === "configuracao" && <ConfiguracaoForm />}
+            {tab === "registro" && <RegistroFaltaForm key={refreshKey} />}
+            {tab === "cadastro" && <CadastroAlunoForm onAlunoAdicionado={() => setRefreshKey((k) => k + 1)} />}
+            {tab === "deletar"  && <DeletarAlunoForm />}
           </>
         )}
       </main>

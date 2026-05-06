@@ -41,9 +41,7 @@ export default function RegistroFaltaForm() {
 
   return (
     <div className="card">
-      <div className="card-title">
-        Registrar Falta
-      </div>
+      <div className="card-title">Registrar Falta</div>
 
       <form onSubmit={handleSubmit}>
         <div className="field">
@@ -70,19 +68,37 @@ export default function RegistroFaltaForm() {
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={carregando}>
-          <i className="fa-solid fa-check" />
+          <lord-icon
+            src="https://cdn.lordicon.com/yqiambns.json"
+            trigger="hover"
+            target=".btn"
+            colors="primary:#ffffff"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
           {carregando ? "Registrando..." : "Registrar Falta"}
         </button>
       </form>
 
       {mensagem && (
         <div className="feedback success">
-          <i className="fa-solid fa-circle-check" /> {mensagem}
+          <lord-icon
+            src="https://cdn.lordicon.com/jecyvwok.json"
+            trigger="in"
+            colors="primary:#16A34A"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
+          {mensagem}
         </div>
       )}
       {erro && (
         <div className="feedback error">
-          <i className="fa-solid fa-circle-xmark" /> {erro}
+          <lord-icon
+            src="https://cdn.lordicon.com/nqtddedc.json"
+            trigger="in"
+            colors="primary:#EF4444"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
+          {erro}
         </div>
       )}
 
@@ -96,13 +112,24 @@ export default function RegistroFaltaForm() {
               </div>
             </div>
             {resumo.limiteExcedido && (
-              <i className="fa-solid fa-triangle-exclamation" style={{ color: "var(--danger)", fontSize: 20 }} />
+              <lord-icon
+                src="https://cdn.lordicon.com/msetysan.json"
+                trigger="loop"
+                colors="primary:#EF4444"
+                style={{width: "24px", height: "24px"}}
+              ></lord-icon>
             )}
           </div>
 
           {resumo.limiteExcedido && (
             <div className="feedback warning">
-              <i className="fa-solid fa-envelope" /> Alerta enviado por e-mail para {resumo.nome}.
+              <lord-icon
+                src="https://cdn.lordicon.com/rhvddzym.json"
+                trigger="in"
+                colors="primary:#B45309"
+                style={{width: "18px", height: "18px"}}
+              ></lord-icon>
+              Alerta enviado por e-mail para {resumo.nome}.
             </div>
           )}
 

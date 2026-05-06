@@ -28,9 +28,7 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
 
   return (
     <div className="card">
-      <div className="card-title">
-        Cadastrar Aluno
-      </div>
+      <div className="card-title">Cadastrar Aluno</div>
 
       <form onSubmit={handleSubmit}>
         <div className="field">
@@ -52,19 +50,37 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
         </div>
 
         <button type="submit" className="btn btn-success" disabled={carregando}>
-          <i className="fa-solid fa-user-check" />
+          <lord-icon
+            src="https://cdn.lordicon.com/dqxvvqzi.json"
+            trigger="hover"
+            target=".btn"
+            colors="primary:#ffffff"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
           {carregando ? "Cadastrando..." : "Cadastrar Aluno"}
         </button>
       </form>
 
       {mensagem && (
         <div className="feedback success">
-          <i className="fa-solid fa-circle-check" /> {mensagem}
+          <lord-icon
+            src="https://cdn.lordicon.com/jecyvwok.json"
+            trigger="in"
+            colors="primary:#16A34A"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
+          {mensagem}
         </div>
       )}
       {erro && (
         <div className="feedback error">
-          <i className="fa-solid fa-circle-xmark" /> {erro}
+          <lord-icon
+            src="https://cdn.lordicon.com/nqtddedc.json"
+            trigger="in"
+            colors="primary:#EF4444"
+            style={{width: "18px", height: "18px"}}
+          ></lord-icon>
+          {erro}
         </div>
       )}
     </div>
