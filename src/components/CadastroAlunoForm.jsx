@@ -30,20 +30,20 @@ export default function CadastroAlunoForm({ onAlunoAdicionado }) {
     <div className="card">
       <form onSubmit={handleSubmit}>
         <div className="field">
-          <label>Nome</label>
+          <label>Nome Completo</label>
           <input
             type="text" value={nome}
             onChange={(e) => setNome(e.target.value)}
-            placeholder="Nome completo" required
+            placeholder="Nome completo do Aluno: (e.g., Victor Hugo dos Santos)" required
           />
         </div>
 
         <div className="field">
-          <label>E-mail</label>
+          <label>E-mail do Responsável</label>
           <input
             type="email" value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="email@escola.com" required
+            placeholder="E-mail do Responsável: (e.g., responsavel@escola.com)" required
           />
         </div>
 

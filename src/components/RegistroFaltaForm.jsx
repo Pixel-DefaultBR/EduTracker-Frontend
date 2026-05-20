@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listarAlunos, registrarFalta, obterResumoAluno } from "../api/faltasApi";
+import { listarAlunos, registrarFalta, obterResumoAluno, deletarRegistroFalta } from "../api/faltasApi";
 
 export default function RegistroFaltaForm() {
   const [alunos, setAlunos] = useState([]);
@@ -39,6 +39,20 @@ export default function RegistroFaltaForm() {
     }
   }
 
+  async function handleRemoverFalta(registroId) {
+    if (!confirm("Tem certeza que deseja remover esta falta?")) return;
+    setErro(null);
+    setMensagem(null);
+    try {
+      await deletarRegistroFalta(registroId);
+      setMensagem("Falta removida com sucesso!");
+      const r = await obterResumoAluno(alunoId);
+      setResumo(r);
+    } catch (err) {
+      setErro(err.message);
+    }
+  }
+
   return (
     <div className={`card ${resumo ? "card-wide" : ""}`}>
       <div className="card-body">
@@ -57,14 +71,14 @@ export default function RegistroFaltaForm() {
 
             <div className="field">
               <label>Data</label>
-              <input type="date" value={data} onChange={(e) => setData(e.target.value)} required />
+              <input type="date" value={data} onChange={(e) => setData(e.target.value)} max={new Date().toISOString().split("T")[0]} required />
             </div>
 
             <div className="field">
               <label>Quantidade de Faltas</label>
               <input
-                type="number" min={1} max={10}
-                value={quantidade} onChange={(e) => setQuantidade(e.target.value)} required
+                type="number" min={1} max={1}
+                value={quantidade} onChange={(e) => setQuantidade(e.target.value)} required readOnly
               />
             </div>
 
@@ -100,9 +114,9 @@ export default function RegistroFaltaForm() {
             <div className="card-col" style={{animation: "fadeSlideUp 0.3s ease both"}}>
               <div className="resumo-stats">
                 <div>
-                  <div className="resumo-label">Faltas — últimos 7 dias</div>
+                  <div className="resumo-label">Faltas — esta semana</div>
                   <div className={`resumo-value ${resumo.limiteExcedido ? "danger" : "ok"}`}>
-                    {resumo.totalFaltasUltimos7Dias}
+                    {resumo.totalFaltasUltimos5Dias}
                   </div>
                 </div>
                 {resumo.limiteExcedido && (
@@ -123,6 +137,7 @@ export default function RegistroFaltaForm() {
                     <tr>
                       <th>Data</th>
                       <th>Faltas</th>
+                      <th style={{textAlign: "center", width: "40px"}}>Ações</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -130,6 +145,26 @@ export default function RegistroFaltaForm() {
                       <tr key={i}>
                         <td>{r.data}</td>
                         <td>{r.quantidadeFaltas}</td>
+                        <td style={{textAlign: "center"}}>
+                          <button
+                            type="button"
+                            title="Remover Falta"
+                            onClick={() => handleRemoverFalta(r.id)}
+                            style={{
+                              background: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: "4px"
+                            }}
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/jmkrnisz.json"
+                              trigger="hover"
+                              colors="primary:#EF4444"
+                              style={{ width: "20px", height: "20px" }}
+                            ></lord-icon>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

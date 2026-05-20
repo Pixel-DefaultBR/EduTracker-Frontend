@@ -54,3 +54,11 @@ export async function deletarAluno(alunoId) {
     throw new Error(json.mensagem || "Erro ao deletar aluno.");
   }
 }
+
+export async function deletarRegistroFalta(registroId) {
+  const res = await fetch(`${BASE_URL}/${registroId}`, { method: "DELETE" });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.mensagem || "Erro ao deletar registro de falta.");
+  }
+}
